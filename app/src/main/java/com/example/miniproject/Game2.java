@@ -33,8 +33,10 @@ public class Game2 extends AppCompatActivity {
         final int width = displayMetrics.widthPixels;
         final int tx=(round(width/2+width/4)/100)*100;
         final int ty=(round(height/2+height/4)/100)*100;
-            target.setTranslationX(parseFloat(""+Math.random() * tx));
-            target.setTranslationY(parseFloat(""+Math.random() * ty));
+        final float targetx=parseFloat(""+Math.random() * tx);
+        final float targety=parseFloat(""+Math.random() * ty);
+        target.setTranslationX(targetx);
+        target.setTranslationY(targety);
         canvas.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
@@ -48,8 +50,10 @@ public class Game2 extends AppCompatActivity {
                 {
                     user.setTranslationY(motionEvent.getY());
                 }
+                if(x==targetx && y==targety)
+                    i.setText("win");
 //                Boolean a=pass(x,y);
-                i.setText(user.getTranslationX()+"_"+user.getTranslationY()+"_"+(round(x/100))*100);
+//                i.setText(user.getTranslationX()+"_"+user.getTranslationY()+"_"+(round(x/100))*100);
                 return  true;
             }
         });
