@@ -91,7 +91,7 @@ public class Learn extends AppCompatActivity {
         alert.setPositiveButton("Start Game", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                Intent intent=new Intent(Learn.this,Game.class);
+                Intent intent=new Intent(Learn.this,Game2.class);
                 startActivity(intent);
             }
         });

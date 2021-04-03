@@ -1,9 +1,12 @@
 package com.example.miniproject;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.MotionEvent;
@@ -21,8 +24,8 @@ import static java.lang.Math.round;
 
 public class Game2 extends AppCompatActivity {
     ImageView user,target1,target2,target3,target4,target5,target6,canvas;
-    TextView i;
-
+    TextView i,t;
+    boolean started=false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +39,7 @@ public class Game2 extends AppCompatActivity {
         target6=(ImageView)findViewById(R.id.target6);
         canvas=(ImageView)findViewById(R.id.canvas) ;
         i=(TextView)findViewById(R.id.i);
+        t=(TextView)findViewById(R.id.clock);
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         final int height = displayMetrics.heightPixels;
@@ -47,10 +51,48 @@ public class Game2 extends AppCompatActivity {
         target3.setTranslationX(tx/2);
         target4.setTranslationX(tx/4+tx/2);
         target5.setTranslationX(tx);
-        target6.setTranslationX(tx+target5.getWidth());
+        target6.setTranslationX(tx+tx/4);
+        final AlertDialog.Builder alert1=new AlertDialog.Builder(Game2.this);
+        alert1.setTitle("NOTE");
+        alert1.setMessage("Try to avoid the green balls to survive");
+        alert1.setCancelable(true);
+        alert1.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                Intent intent=new Intent(Game2.this,Game2.class);
+                startActivity(intent);
+            }
+        });
+        alert1.setNegativeButton("", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                Intent intent=new Intent(Game2.this,Game2.class);
+                startActivity(intent);
+            }
+        });
+        AlertDialog dialog1=alert1.create();
+        dialog1.show();
+        final AlertDialog.Builder alert=new AlertDialog.Builder(Game2.this);
+        alert.setTitle("Game Over");
+        alert.setCancelable(false);
+        alert.setPositiveButton("Play", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                Intent intent=new Intent(Game2.this,Game2.class);
+                startActivity(intent);
+            }
+        });
+        alert.setNegativeButton("Quit", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                Intent intent=new Intent(Game2.this,MainActivity.class);
+                startActivity(intent);
+            }
+        });
         canvas.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
+                started=true;
                 float x=motionEvent.getX();
                 float y=motionEvent.getY();
                 float targetx1=target1.getTranslationX();
@@ -79,7 +121,13 @@ public class Game2 extends AppCompatActivity {
                 || (round(x)>round(targetx4)-25 && round(x)<round(targetx4)+25 && round(y)>round(targety4)-25 && round(y)<round(targety4)+25)
                 || (round(x)>round(targetx5)-25 && round(x)<round(targetx5)+25 && round(y)>round(targety5)-25 && round(y)<round(targety5)+25)
                 || (round(x)>round(targetx6)-25 && round(x)<round(targetx6)+25 && round(y)>round(targety6)-25 && round(y)<round(targety6)+25))
+                {
                     i.setText("Lost");
+                    alert.setMessage("Your life time"+t.getText());
+                    AlertDialog dialog=alert.create();
+                    dialog.show();
+                }
+
                 return  true;
             }
         });
@@ -133,13 +181,18 @@ public class Game2 extends AppCompatActivity {
                                     targety5=target5.getTranslationY();
                                     float targetx6=target6.getTranslationX();
                                     targety6=target6.getTranslationY();
-                                    if((round(x)>round(targetx1)-25 && round(x)<round(targetx1)+25 && round(y)>round(targety1)-25 && round(y)<round(targety1)+25)
+                                    if(started && (round(x)>round(targetx1)-25 && round(x)<round(targetx1)+25 && round(y)>round(targety1)-25 && round(y)<round(targety1)+25)
                                             || (round(x)>round(targetx2)-25 && round(x)<round(targetx2)+25 && round(y)>round(targety2)-25 && round(y)<round(targety2)+25)
                                             || (round(x)>round(targetx3)-25 && round(x)<round(targetx3)+25 && round(y)>round(targety3)-25 && round(y)<round(targety3)+25)
                                             || (round(x)>round(targetx4)-25 && round(x)<round(targetx4)+25 && round(y)>round(targety4)-25 && round(y)<round(targety4)+25)
                                             || (round(x)>round(targetx5)-25 && round(x)<round(targetx5)+25 && round(y)>round(targety5)-25 && round(y)<round(targety5)+25)
                                             || (round(x)>round(targetx6)-25 && round(x)<round(targetx6)+25 && round(y)>round(targety6)-25 && round(y)<round(targety6)+25))
+                                    {
                                         i.setText("Lost");
+                                        alert.setMessage("Your life time"+t.getText());
+                                        AlertDialog dialog=alert.create();
+                                        dialog.show();
+                                    }
                                 }
                             });
                             Thread.sleep(2000);
@@ -162,20 +215,30 @@ public class Game2 extends AppCompatActivity {
                 public void run() {
                     while(true)
                     {
-                        int min,sec;
-                        TextView t=(TextView)findViewById(R.id.clock);
-                        String text=t.getText().toString();
-                        String[] list=text.split(":");
-                        min=parseInt(list[0]);
-                        sec=parseInt(list[1]);
-                        sec=sec+1;
-                        if(sec>60)
-                            min=min+1;
-                        t.setText(min+":"+sec);
+                        try {
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    int min,sec;
+                                    String text=t.getText().toString();
+                                    String[] list=text.split(":");
+                                    min=parseInt(list[0]);
+                                    sec=parseInt(list[1]);
+                                    sec=sec+1;
+                                    if(sec>60)
+                                        min=min+1;
+                                    t.setText(min+":"+sec);
+                                }
+                            });
+                            Thread.sleep(1000);
+                        }
+                       catch (Exception e)
+                       {
+
+                       }
                     }
                 }
-            });
-            Thread.sleep(1000);
+            }).start();
         }
         catch (Exception e)
         {
