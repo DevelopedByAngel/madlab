@@ -100,16 +100,131 @@
         android:textSize="40dp"
         android:gravity="center"/>
     <TextView
-        android:id="@+id/content"
+        android:id="@+id/ques1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="The smallest planet in our solar system and nearest to the Sun, Mercury is only slightly larger than Earth's Moon. From the surface of Mercury, the Sun would appear more than three times as large as it does when viewed from Earth, and the sunlight would be as much as seven times brighter. Despite its proximity to the Sun, Mercury is not the hottest planet in our solar system – that title belongs to nearby Venus, thanks to its dense atmosphere. But Mercury is the fastest planet, zipping around the Sun every 88 Earth days.  Mercury is appropriately named for the swiftest of the ancient Roman gods. With a radius of 1,516 miles (2,440 kilometers), Mercury is a little more than 1/3 the width of Earth. If Earth were the size of a nickel, Mercury would be about as big as a blueberry.  From an average distance of 36 million miles (58 million kilometers), Mercury is 0.4 astronomical units away from the Sun. One astronomical unit (abbreviated as AU), is the distance from the Sun to Earth. From this distance, it takes sunlight 3.2 minutes to travel from the Sun to Mercury." />
+        android:textSize="20dp"
+        android:text="ques1"
+        android:layout_marginTop="50dp"
+        />
+    <RadioGroup
+        android:id="@+id/group1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="31dp">
+        <RadioButton
+            android:id="@+id/opt11"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="opt1"/>
+        <RadioButton
+            android:id="@+id/opt12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="opt2"/>
+        <RadioButton
+            android:id="@+id/opt13"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="opt3"/>
+
+    </RadioGroup>
+    <TextView
+        android:id="@+id/ques2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
+        android:text="ques1"
+        android:layout_marginTop="50dp"
+        />
+    <RadioGroup
+        android:id="@+id/group2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="31dp">
+        <RadioButton
+            android:id="@+id/opt21"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="opt1"/>
+        <RadioButton
+            android:id="@+id/opt22"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="opt2"/>
+        <RadioButton
+            android:id="@+id/opt23"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="opt3"/>
+
+    </RadioGroup>
+    <TextView
+        android:id="@+id/ques3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
+        android:text="ques1"
+        android:layout_marginTop="50dp"
+        />
+    <RadioGroup
+        android:id="@+id/group3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="31dp">
+        <RadioButton
+            android:id="@+id/opt31"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="opt1"/>
+        <RadioButton
+            android:id="@+id/opt32"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="opt2"/>
+        <RadioButton
+            android:id="@+id/opt33"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="opt3"/>
+
+    </RadioGroup>
+    <TextView
+        android:id="@+id/ques4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
+        android:text="ques1"
+        android:layout_marginTop="50dp"
+        />
+    <RadioGroup
+        android:id="@+id/group4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="31dp">
+        <RadioButton
+            android:id="@+id/opt41"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="opt1"/>
+        <RadioButton
+            android:id="@+id/opt42"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="opt2"/>
+        <RadioButton
+            android:id="@+id/opt43"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="opt3"/>
+
+    </RadioGroup>
 
     <Button
-        android:id="@+id/quiz"
+        android:id="@+id/submit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Take Quiz"
+        android:text="Get Score"
         android:lastBaselineToBottomHeight="10dp"
         android:layout_marginVertical="20dp"
         android:layout_gravity="center"/>

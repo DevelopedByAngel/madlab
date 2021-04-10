@@ -25,6 +25,13 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
+        b2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                i=new Intent(MainActivity.this,Quiz.class);
+                startActivity(i);
+            }
+        });
         b3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
