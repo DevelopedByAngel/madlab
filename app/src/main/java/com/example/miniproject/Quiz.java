@@ -1,7 +1,10 @@
 package com.example.miniproject;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
@@ -9,6 +12,7 @@ import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class Quiz extends AppCompatActivity {
     String[] mercury={"Scientists believe Mercury's core is made of what, exactly?\n",
@@ -75,12 +79,15 @@ public class Quiz extends AppCompatActivity {
     String[] opt82={"Sixth","Dust storms","Days are longer on Neptune","Jewel of our solar system"};
     String[] opt83={"Second","An unknown element in the atmosphere","Earth has longer days","The windiest planet"};
     int[] ans8={1,3,3,3};
-    Button mercuryb,venusb,earthb,marsb,saturnb,jupiterb,uranusb,neptuneb;
+    Button mercuryb,venusb,earthb,marsb,saturnb,jupiterb,uranusb,neptuneb,submit,tryagain;
     TextView q1,q2,q3,q4;
     RadioGroup g1,g2,g3,g4;
     int s1,s2,s3,s4;
     RadioButton o11,o12,o13,o21,o22,o23,o31,o32,o33,o41,o42,o43;
-    int i=0;
+    TextView heading,scoreView;
+    int i;
+    int planet=0;
+    TextView p1,p2,p3,p4;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -113,36 +120,318 @@ public class Quiz extends AppCompatActivity {
         o41=(RadioButton)findViewById(R.id.opt41);
         o42=(RadioButton)findViewById(R.id.opt42);
         o43=(RadioButton)findViewById(R.id.opt43);
-        Button[] mainSelect={mercuryb,venusb,earthb,marsb,saturnb,jupiterb,uranusb,neptuneb};
+        p1=(TextView)findViewById(R.id.point1);
+        p2=(TextView)findViewById(R.id.point2);
+        p3=(TextView)findViewById(R.id.point3);
+        p4=(TextView)findViewById(R.id.point4);
+        TextView[] point={p1,p2,p3,p4};
+        heading=(TextView)findViewById(R.id.heading);
+        submit=(Button)findViewById(R.id.submit);
+        scoreView=(TextView)findViewById(R.id.score);
         String[][] questions={mercury,venus,earth,mars,saturn,jupiter,uranus,neptune};
-        String[][] opt1={opt11,opt21,opt31,opt41,opt51,opt62,opt71,opt81};
+        String[][] opt1={opt11,opt21,opt31,opt41,opt51,opt61,opt71,opt81};
         String[][] opt2={opt12,opt22,opt32,opt42,opt52,opt62,opt72,opt82};
         String[][] opt3={opt13,opt23,opt33,opt43,opt53,opt63,opt73,opt83};
-        while(i<8)
-        {
-            mainSelect[i].setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    q1.setText(questions[i][0]);
-                    o11.setText(opt1[i][0]);
-                    o12.setText(opt2[i][0]);
-                    o13.setText(opt3[i][0]);
-                    q2.setText(questions[i][1]);
-                    o21.setText(opt1[i][1]);
-                    o22.setText(opt2[i][1]);
-                    o23.setText(opt3[i][1]);
-                    q3.setText(questions[i][2]);
-                    o31.setText(opt1[i][2]);
-                    o32.setText(opt2[i][2]);
-                    o33.setText(opt3[i][2]);
-                    q4.setText(questions[i][3]);
-                    o41.setText(opt1[i][3]);
-                    o42.setText(opt2[i][3]);
-                    o43.setText(opt3[i][3]);
+        Button[] buttons={mercuryb,venusb,earthb,marsb,saturnb,jupiterb,uranusb,neptuneb};
+        int[][] ans={ans1,ans2,ans3,ans4,ans5,ans6,ans7,ans8};
+        tryagain=(Button)findViewById(R.id.tryagain);
+        tryagain.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                buttons[planet].performClick();
+            }
+        });
+        mercuryb.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                intial();
+                planet=0;
+                heading.setText("Mercury");
+                q1.setText(questions[0][0]);
+                o11.setText(opt1[0][0]);
+                o12.setText(opt2[0][0]);
+                o13.setText(opt3[0][0]);
+                q2.setText(questions[0][1]);
+                o21.setText(opt1[0][1]);
+                o22.setText(opt2[0][1]);
+                o23.setText(opt3[0][1]);
+                q3.setText(questions[0][2]);
+                o31.setText(opt1[0][2]);
+                o32.setText(opt2[0][2]);
+                o33.setText(opt3[0][2]);
+                q4.setText(questions[0][3]);
+                o41.setText(opt1[0][3]);
+                o42.setText(opt2[0][3]);
+                o43.setText(opt3[0][3]);
+            }
+        });
+        venusb.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                intial();
+                planet=1;
+                heading.setText("Venus");
+                q1.setText(questions[1][0]);
+                o11.setText(opt1[1][0]);
+                o12.setText(opt2[1][0]);
+                o13.setText(opt3[1][0]);
+                q2.setText(questions[1][1]);
+                o21.setText(opt1[1][1]);
+                o22.setText(opt2[1][1]);
+                o23.setText(opt3[1][1]);
+                q3.setText(questions[1][2]);
+                o31.setText(opt1[1][2]);
+                o32.setText(opt2[1][2]);
+                o33.setText(opt3[1][2]);
+                q4.setText(questions[1][3]);
+                o41.setText(opt1[1][3]);
+                o42.setText(opt2[1][3]);
+                o43.setText(opt3[1][3]);
+            }
+        });
+        earthb.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                intial();
+                planet=2;
+                heading.setText("Earth");
+                q1.setText(questions[2][0]);
+                o11.setText(opt1[2][0]);
+                o12.setText(opt2[2][0]);
+                o13.setText(opt3[2][0]);
+                q2.setText(questions[2][1]);
+                o21.setText(opt1[2][1]);
+                o22.setText(opt2[2][1]);
+                o23.setText(opt3[2][1]);
+                q3.setText(questions[2][2]);
+                o31.setText(opt1[2][2]);
+                o32.setText(opt2[2][2]);
+                o33.setText(opt3[2][2]);
+                q4.setText(questions[2][3]);
+                o41.setText(opt1[2][3]);
+                o42.setText(opt2[2][3]);
+                o43.setText(opt3[2][3]);
+            }
+        });
+        marsb.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                intial();
+                planet=3;
+                heading.setText("Mars");
+                q1.setText(questions[3][0]);
+                o11.setText(opt1[3][0]);
+                o12.setText(opt2[3][0]);
+                o13.setText(opt3[3][0]);
+                q2.setText(questions[3][1]);
+                o21.setText(opt1[3][1]);
+                o22.setText(opt2[3][1]);
+                o23.setText(opt3[3][1]);
+                q3.setText(questions[3][2]);
+                o31.setText(opt1[3][2]);
+                o32.setText(opt2[3][2]);
+                o33.setText(opt3[3][2]);
+                q4.setText(questions[3][3]);
+                o41.setText(opt1[3][3]);
+                o42.setText(opt2[3][3]);
+                o43.setText(opt3[3][3]);
+            }
+        });
+        saturnb.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                intial();
+                planet=4;
+                heading.setText("Saturn");
+                q1.setText(questions[4][0]);
+                o11.setText(opt1[4][0]);
+                o12.setText(opt2[4][0]);
+                o13.setText(opt3[4][0]);
+                q2.setText(questions[4][1]);
+                o21.setText(opt1[4][1]);
+                o22.setText(opt2[4][1]);
+                o23.setText(opt3[4][1]);
+                q3.setText(questions[4][2]);
+                o31.setText(opt1[4][2]);
+                o32.setText(opt2[4][2]);
+                o33.setText(opt3[4][2]);
+                q4.setText(questions[4][3]);
+                o41.setText(opt1[4][3]);
+                o42.setText(opt2[4][3]);
+                o43.setText(opt3[4][3]);
+            }
+        });
+        jupiterb.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                intial();
+                planet=5;
+                heading.setText("Jupiter");
+                q1.setText(questions[5][0]);
+                o11.setText(opt1[5][0]);
+                o12.setText(opt2[5][0]);
+                o13.setText(opt3[5][0]);
+                q2.setText(questions[5][1]);
+                o21.setText(opt1[5][1]);
+                o22.setText(opt2[5][1]);
+                o23.setText(opt3[5][1]);
+                q3.setText(questions[5][2]);
+                o31.setText(opt1[5][2]);
+                o32.setText(opt2[5][2]);
+                o33.setText(opt3[5][2]);
+                q4.setText(questions[5][3]);
+                o41.setText(opt1[5][3]);
+                o42.setText(opt2[5][3]);
+                o43.setText(opt3[5][3]);
+            }
+        });
+        uranusb.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                intial();
+                planet=6;
+                heading.setText("Uranus");
+                q1.setText(questions[6][0]);
+                o11.setText(opt1[6][0]);
+                o12.setText(opt2[6][0]);
+                o13.setText(opt3[6][0]);
+                q2.setText(questions[6][1]);
+                o21.setText(opt1[6][1]);
+                o22.setText(opt2[6][1]);
+                o23.setText(opt3[6][1]);
+                q3.setText(questions[6][2]);
+                o31.setText(opt1[6][2]);
+                o32.setText(opt2[6][2]);
+                o33.setText(opt3[6][2]);
+                q4.setText(questions[6][3]);
+                o41.setText(opt1[6][3]);
+                o42.setText(opt2[6][3]);
+                o43.setText(opt3[6][3]);
+            }
+        });
+        neptuneb.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                intial();
+                planet=7;
+                heading.setText("Neptune");
+                q1.setText(questions[7][0]);
+                o11.setText(opt1[7][0]);
+                o12.setText(opt2[7][0]);
+                o13.setText(opt3[7][0]);
+                q2.setText(questions[7][1]);
+                o21.setText(opt1[7][1]);
+                o22.setText(opt2[7][1]);
+                o23.setText(opt3[7][1]);
+                q3.setText(questions[7][2]);
+                o31.setText(opt1[7][2]);
+                o32.setText(opt2[7][2]);
+                o33.setText(opt3[7][2]);
+                q4.setText(questions[7][3]);
+                o41.setText(opt1[7][3]);
+                o42.setText(opt2[7][3]);
+                o43.setText(opt3[7][3]);
+            }
+        });
+        submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int score = 0;
+
+                if (g1.getCheckedRadioButtonId() == -1 || g2.getCheckedRadioButtonId() == -1 || g3.getCheckedRadioButtonId() == -1 || g4.getCheckedRadioButtonId() == -1) {
+                    Toast t = new Toast(Quiz.this);
+                    t.setText("Attend all 4 questions");
+                    t.show();
                 }
-            });
-            i++;
-        }
+                else {
+
+                    RadioButton selectedButton1 = (RadioButton) findViewById(g1.getCheckedRadioButtonId());
+                    int[] chose = {0, 0, 0, 0};
+                    if (opt1[planet][0] == selectedButton1.getText())
+                        chose[0] = 1;
+                    else if (opt2[planet][0] == selectedButton1.getText())
+                        chose[0] = 2;
+                    else if (opt3[planet][0] == selectedButton1.getText())
+                        chose[0] = 3;
+                    RadioButton selectedButton2 = (RadioButton) findViewById(g2.getCheckedRadioButtonId());
+                    if (opt1[planet][1] == selectedButton2.getText())
+                        chose[1] = 1;
+                    else if (opt2[planet][1] == selectedButton2.getText())
+                        chose[1] = 2;
+                    else if (opt3[planet][1] == selectedButton2.getText())
+                        chose[1] = 3;
+                    RadioButton selectedButton3 = (RadioButton) findViewById(g3.getCheckedRadioButtonId());
+                    if (opt1[planet][2] == selectedButton3.getText())
+                        chose[2] = 1;
+                    else if (opt2[planet][2] == selectedButton3.getText())
+                        chose[2] = 2;
+                    else if (opt3[planet][2] == selectedButton3.getText())
+                        chose[2] = 3;
+                    RadioButton selectedButton4 = (RadioButton) findViewById(g4.getCheckedRadioButtonId());
+                    if (opt1[planet][3] == selectedButton4.getText())
+                        chose[3] = 1;
+                    else if (opt2[planet][3] == selectedButton4.getText())
+                        chose[3] = 2;
+                    else if (opt3[planet][3] == selectedButton4.getText())
+                        chose[3] = 3;
+                    for (int j = 0; j < 4; j++) {
+                        if (ans[planet][j] == chose[j])
+                        {
+                            score = score + 1;
+                            point[j].setText("1/1");
+                        }
+                        else
+                        {
+                            point[j].setText("0/1");
+                        }
+
+                    }
+                    scoreView.setText("Score = "+score);
+                    submit.setVisibility(View.GONE);
+                    tryagain.setVisibility(View.VISIBLE);
+                    q1.setText(q1.getText()+"\nAns : "+ans[planet][0]);
+                    q2.setText(q2.getText()+"\nAns : "+ans[planet][1]);
+                    q3.setText(q3.getText()+"\nAns : "+ans[planet][2]);
+                    q4.setText(q4.getText()+"\nAns : "+ans[planet][3]);
+//                    submit.setText(score);
+//                    final AlertDialog.Builder alert=new AlertDialog.Builder(Quiz.this);
+//                    alert.setTitle("Score");
+//                    alert.setMessage("Your score in this quiz is "+score);
+//                    alert.setCancelable(false);
+//                    alert.setPositiveButton("Take Quiz again", new DialogInterface.OnClickListener() {
+//                        @Override
+//                        public void onClick(DialogInterface dialogInterface, int i) {
+//                            Intent intent=new Intent(Quiz.this,Quiz.class);
+//                            startActivity(intent);
+//                        }
+//                    });
+//                    alert.setNegativeButton("Home", new DialogInterface.OnClickListener() {
+//                        @Override
+//                        public void onClick(DialogInterface dialogInterface, int i) {
+//                            Intent intent=new Intent(Quiz.this,MainActivity.class);
+//                            startActivity(intent);
+//                        }
+//                    });
+//                    AlertDialog dialog=alert.create();
+//                    dialog.show();
+                }
+            }
+        });
         mercuryb.performClick();
+
+    }
+    public void intial()
+    {
+        scoreView.setText("");
+        tryagain.setVisibility(View.GONE);
+        submit.setVisibility(View.VISIBLE);
+        g1.clearCheck();
+        g2.clearCheck();
+        g3.clearCheck();
+        g4.clearCheck();
+        p1.setText("");
+        p2.setText("");
+        p3.setText("");
+        p4.setText("");
     }
 }

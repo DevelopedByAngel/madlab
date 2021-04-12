@@ -26,6 +26,8 @@ public class Game2 extends AppCompatActivity {
     ImageView user,target1,target2,target3,target4,target5,target6,canvas;
     TextView i,t;
     boolean started=false;
+    float x,y;
+    AlertDialog.Builder alert;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,27 +54,8 @@ public class Game2 extends AppCompatActivity {
         target4.setTranslationX(tx/4+tx/2);
         target5.setTranslationX(tx);
         target6.setTranslationX(tx+tx/4);
-        final AlertDialog.Builder alert1=new AlertDialog.Builder(Game2.this);
-        alert1.setTitle("NOTE");
-        alert1.setMessage("Try to avoid the green balls to survive");
-        alert1.setCancelable(true);
-        alert1.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                Intent intent=new Intent(Game2.this,Game2.class);
-                startActivity(intent);
-            }
-        });
-        alert1.setNegativeButton("", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                Intent intent=new Intent(Game2.this,Game2.class);
-                startActivity(intent);
-            }
-        });
-        AlertDialog dialog1=alert1.create();
-        dialog1.show();
-        final AlertDialog.Builder alert=new AlertDialog.Builder(Game2.this);
+
+        alert=new AlertDialog.Builder(Game2.this);
         alert.setTitle("Game Over");
         alert.setCancelable(false);
         alert.setPositiveButton("Play", new DialogInterface.OnClickListener() {
@@ -89,24 +72,14 @@ public class Game2 extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
         canvas.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 started=true;
-                float x=motionEvent.getX();
-                float y=motionEvent.getY();
-                float targetx1=target1.getTranslationX();
-                float targety1=target1.getTranslationY();
-                float targetx2=target2.getTranslationX();
-                float targety2=target2.getTranslationY();
-                float targetx3=target3.getTranslationX();
-                float targety3=target3.getTranslationY();
-                float targetx4=target4.getTranslationX();
-                float targety4=target4.getTranslationY();
-                float targetx5=target5.getTranslationX();
-                float targety5=target5.getTranslationY();
-                float targetx6=target6.getTranslationX();
-                float targety6=target6.getTranslationY();
+                x=motionEvent.getX();
+                y=motionEvent.getY();
+                move();
                 if(x>=0)
                 {
                     user.setTranslationX(x);
@@ -115,19 +88,6 @@ public class Game2 extends AppCompatActivity {
                 {
                     user.setTranslationY(y);
                 }
-                if((round(x)>round(targetx1)-25 && round(x)<round(targetx1)+25 && round(y)>round(targety1)-25 && round(y)<round(targety1)+25)
-                || (round(x)>round(targetx2)-25 && round(x)<round(targetx2)+25 && round(y)>round(targety2)-25 && round(y)<round(targety2)+25)
-                || (round(x)>round(targetx3)-25 && round(x)<round(targetx3)+25 && round(y)>round(targety3)-25 && round(y)<round(targety3)+25)
-                || (round(x)>round(targetx4)-25 && round(x)<round(targetx4)+25 && round(y)>round(targety4)-25 && round(y)<round(targety4)+25)
-                || (round(x)>round(targetx5)-25 && round(x)<round(targetx5)+25 && round(y)>round(targety5)-25 && round(y)<round(targety5)+25)
-                || (round(x)>round(targetx6)-25 && round(x)<round(targetx6)+25 && round(y)>round(targety6)-25 && round(y)<round(targety6)+25))
-                {
-                    i.setText("Lost");
-                    alert.setMessage("Your life time"+t.getText());
-                    AlertDialog dialog=alert.create();
-                    dialog.show();
-                }
-
                 return  true;
             }
         });
@@ -142,7 +102,7 @@ public class Game2 extends AppCompatActivity {
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    int d=2000;
+                                    int d=400;
                                     float targety1=parseFloat(""+Math.random() * ty);
                                     float targety2=parseFloat(""+Math.random() * ty);
                                     float targety3=parseFloat(""+Math.random() * ty);
@@ -167,35 +127,36 @@ public class Game2 extends AppCompatActivity {
                                     ObjectAnimator transAnimation6= ObjectAnimator.ofFloat(target6, "translationY", target6.getTranslationY(), targety6);
                                     transAnimation6.setDuration(d);//set duration
                                     transAnimation6.start();
-                                    float x=user.getTranslationX();
-                                    float y=user.getTranslationY();
-                                    float targetx1=target1.getTranslationX();
-                                    targety1=target1.getTranslationY();
-                                    float targetx2=target2.getTranslationX();
-                                    targety2=target2.getTranslationY();
-                                    float targetx3=target3.getTranslationX();
-                                    targety3=target3.getTranslationY();
-                                    float targetx4=target4.getTranslationX();
-                                    targety4=target4.getTranslationY();
-                                    float targetx5=target5.getTranslationX();
-                                    targety5=target5.getTranslationY();
-                                    float targetx6=target6.getTranslationX();
-                                    targety6=target6.getTranslationY();
-                                    if(started && (round(x)>round(targetx1)-25 && round(x)<round(targetx1)+25 && round(y)>round(targety1)-25 && round(y)<round(targety1)+25)
-                                            || (round(x)>round(targetx2)-25 && round(x)<round(targetx2)+25 && round(y)>round(targety2)-25 && round(y)<round(targety2)+25)
-                                            || (round(x)>round(targetx3)-25 && round(x)<round(targetx3)+25 && round(y)>round(targety3)-25 && round(y)<round(targety3)+25)
-                                            || (round(x)>round(targetx4)-25 && round(x)<round(targetx4)+25 && round(y)>round(targety4)-25 && round(y)<round(targety4)+25)
-                                            || (round(x)>round(targetx5)-25 && round(x)<round(targetx5)+25 && round(y)>round(targety5)-25 && round(y)<round(targety5)+25)
-                                            || (round(x)>round(targetx6)-25 && round(x)<round(targetx6)+25 && round(y)>round(targety6)-25 && round(y)<round(targety6)+25))
-                                    {
-                                        i.setText("Lost");
-                                        alert.setMessage("Your life time"+t.getText());
-                                        AlertDialog dialog=alert.create();
-                                        dialog.show();
-                                    }
+                                    move();
+//                                    float x=user.getTranslationX();
+//                                    float y=user.getTranslationY();
+//                                    float targetx1=target1.getTranslationX();
+//                                    targety1=target1.getTranslationY();
+//                                    float targetx2=target2.getTranslationX();
+//                                    targety2=target2.getTranslationY();
+//                                    float targetx3=target3.getTranslationX();
+//                                    targety3=target3.getTranslationY();
+//                                    float targetx4=target4.getTranslationX();
+//                                    targety4=target4.getTranslationY();
+//                                    float targetx5=target5.getTranslationX();
+//                                    targety5=target5.getTranslationY();
+//                                    float targetx6=target6.getTranslationX();
+//                                    targety6=target6.getTranslationY();
+//                                    if(started && (round(x)>round(targetx1)-25 && round(x)<round(targetx1)+25 && round(y)>round(targety1)-25 && round(y)<round(targety1)+25)
+//                                            || (round(x)>round(targetx2)-25 && round(x)<round(targetx2)+25 && round(y)>round(targety2)-25 && round(y)<round(targety2)+25)
+//                                            || (round(x)>round(targetx3)-25 && round(x)<round(targetx3)+25 && round(y)>round(targety3)-25 && round(y)<round(targety3)+25)
+//                                            || (round(x)>round(targetx4)-25 && round(x)<round(targetx4)+25 && round(y)>round(targety4)-25 && round(y)<round(targety4)+25)
+//                                            || (round(x)>round(targetx5)-25 && round(x)<round(targetx5)+25 && round(y)>round(targety5)-25 && round(y)<round(targety5)+25)
+//                                            || (round(x)>round(targetx6)-25 && round(x)<round(targetx6)+25 && round(y)>round(targety6)-25 && round(y)<round(targety6)+25))
+//                                    {
+//                                        i.setText("Lost");
+//                                        alert.setMessage("Your life time"+t.getText());
+//                                        AlertDialog dialog=alert.create();
+//                                        dialog.show();
+//                                    }
                                 }
                             });
-                            Thread.sleep(2000);
+                            Thread.sleep(400);
                         }
                         catch (Exception e)
                         {
@@ -246,4 +207,33 @@ public class Game2 extends AppCompatActivity {
         }
 
     }
+    public void move()
+    {
+        float targetx1=target1.getTranslationX();
+        float targety1=target1.getTranslationY();
+        float targetx2=target2.getTranslationX();
+        float targety2=target2.getTranslationY();
+        float targetx3=target3.getTranslationX();
+        float targety3=target3.getTranslationY();
+        float targetx4=target4.getTranslationX();
+        float targety4=target4.getTranslationY();
+        float targetx5=target5.getTranslationX();
+        float targety5=target5.getTranslationY();
+        float targetx6=target6.getTranslationX();
+        float targety6=target6.getTranslationY();
+
+        if(started && (round(x)>round(targetx1)-25 && round(x)<round(targetx1)+25 && round(y)>round(targety1)-25 && round(y)<round(targety1)+25)
+                || (round(x)>round(targetx2)-25 && round(x)<round(targetx2)+25 && round(y)>round(targety2)-25 && round(y)<round(targety2)+25)
+                || (round(x)>round(targetx3)-25 && round(x)<round(targetx3)+25 && round(y)>round(targety3)-25 && round(y)<round(targety3)+25)
+                || (round(x)>round(targetx4)-25 && round(x)<round(targetx4)+25 && round(y)>round(targety4)-25 && round(y)<round(targety4)+25)
+                || (round(x)>round(targetx5)-25 && round(x)<round(targetx5)+25 && round(y)>round(targety5)-25 && round(y)<round(targety5)+25)
+                || (round(x)>round(targetx6)-25 && round(x)<round(targetx6)+25 && round(y)>round(targety6)-25 && round(y)<round(targety6)+25))
+        {
+            i.setText("Lost");
+            alert.setMessage("Your life time"+t.getText());
+            AlertDialog dialog=alert.create();
+            dialog.show();
+        }
+    }
+
 }

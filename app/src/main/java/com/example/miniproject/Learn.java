@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class Learn extends AppCompatActivity {
@@ -21,7 +22,8 @@ public class Learn extends AppCompatActivity {
             "The seventh planet from the Sun with the third largest diameter in our solar system, Uranus is very cold and windy. The ice giant is surrounded by 13 faint rings and 27 small moons as it rotates at a nearly 90-degree angle from the plane of its orbit. This unique tilt makes Uranus appear to spin on its side, orbiting the Sun like a rolling ball.The first planet found with the aid of a telescope, Uranus was discovered in 1781 by astronomer William Herschel, although he originally thought it was either a comet or a star. It was two years later that the object was universally accepted as a new planet, in part because of observations by astronomer Johann Elert Bode.William Herschel tried unsuccessfully to name his discovery Georgium Sidus after King George III. Instead the planet was named for Uranus, the Greek god of the sky, as suggested by Johann Bode.With a radius of 15,759.2 miles (25,362 kilometers), Uranus is 4 times wider than Earth. If Earth was the size of a nickel, Uranus would be about as big as a softball.From an average distance of 1.8 billion miles (2.9 billion kilometers), Uranus is 19.8 astronomical units away from the Sun. One astronomical unit (abbreviated as AU), is the distance from the Sun to Earth. From this distance, it takes sunlight 2 hours and 40 minutes to travel from the Sun to Uranus.",
             "Dark, cold and whipped by supersonic winds, ice giant Neptune is the eighth and most distant planet in our solar system. More than 30 times as far from the Sun as Earth, Neptune is the only planet in our solar system not visible to the naked eye. In 2011 Neptune completed its first 165-year orbit since its discovery in 1846.Neptune is so far from the Sun that high noon on the big blue planet would seem like dim twilight to us. The warm light we see here on our home planet is roughly 900 times as bright as sunlight on Neptune.The ice giant Neptune was the first planet located through mathematical calculations. Using predictions made by Urbain Le Verrier, Johann Galle discovered the planet in 1846. The planet is named after the Roman god of the sea, as suggested by Le VerrierWith a radius of 15,299.4 miles (24,622 kilometers), Neptune is about four times wider than Earth. If Earth were the size of a nickel, Neptune would be about as big as a baseball.From an average distance of 2.8 billion miles (4.5 billion kilometers), Neptune is 30 astronomical units away from the Sun. One astronomical unit (abbreviated as AU), is the distance from the Sun to Earth. From this distance, it takes sunlight 4 hours to travel from the Sun to Neptune."};
     String[] topics={"Mercury","Venus","Earth","Mars","Jupiter","Saturn","Uranus","Neptune"};
-
+    int f=0;
+    Button quiz;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,6 +36,7 @@ public class Learn extends AppCompatActivity {
         t6=(Button)findViewById(R.id.saturn);
         t7=(Button)findViewById(R.id.uranus);
         t8=(Button)findViewById(R.id.neptune);
+        quiz=(Button)findViewById(R.id.quiz);
         Button[] button={t1,t2,t3,t4,t5,t6,t7,t8};
         t1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,6 +86,13 @@ public class Learn extends AppCompatActivity {
                 topicSelected(topics[7],contents[7]);
             }
         });
+        quiz.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i=new Intent(Learn.this,Quiz.class);
+                startActivity(i);
+            }
+        });
         final TextView headingElement=(TextView)findViewById(R.id.heading);
         final AlertDialog.Builder alert=new AlertDialog.Builder(Learn.this);
         alert.setTitle("**Break time**");
@@ -92,7 +102,24 @@ public class Learn extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 Intent intent=new Intent(Learn.this,Game2.class);
-                startActivity(intent);
+                final AlertDialog.Builder alert1=new AlertDialog.Builder(Learn.this);
+                alert1.setTitle("NOTE");
+                alert1.setMessage("Try to avoid the green balls to survive");
+                alert1.setCancelable(true);
+                alert1.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        startActivity(intent);
+                    }
+                });
+                alert1.setNegativeButton("", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        startActivity(intent);
+                    }
+                });
+                AlertDialog dialog1=alert1.create();
+                dialog1.show();
             }
         });
         alert.setNegativeButton("Continue Learning", new DialogInterface.OnClickListener() {
@@ -109,8 +136,12 @@ public class Learn extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                AlertDialog dialog=alert.create();
-                                dialog.show();
+                                if(f>0)
+                                {
+                                    AlertDialog dialog=alert.create();
+                                    dialog.show();
+                                }
+                                f=f+1;
                             }
                         });
                         Thread.sleep(10000);
