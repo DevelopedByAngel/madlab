@@ -9,7 +9,7 @@
     android:id="@+id/canvas"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:src="@color/cardview_dark_background"
+    android:src="@color/design_default_color_on_secondary"
     />
     <ImageView
         android:id="@+id/user"
@@ -17,50 +17,50 @@
         android:layout_height="50dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:src="@drawable/ic_launcher_background"
+        android:src="@drawable/user"
         android:layout_gravity=""/>
     <ImageView
         android:id="@+id/target1"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:src="@mipmap/ic_launcher"/>
+        android:src="@drawable/fi"/>
     <ImageView
         android:id="@+id/target2"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:src="@mipmap/ic_launcher"/>
+        android:src="@drawable/fi"/>
     <ImageView
         android:id="@+id/target3"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:src="@mipmap/ic_launcher"/>
+        android:src="@drawable/fi"/>
     <ImageView
         android:id="@+id/target4"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:src="@mipmap/ic_launcher"/>
+        android:src="@drawable/fi"/>
     <ImageView
         android:id="@+id/target5"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:src="@mipmap/ic_launcher"/>
+        android:src="@drawable/fi"/>
     <ImageView
         android:id="@+id/target6"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:src="@mipmap/ic_launcher"/>
+        android:src="@drawable/fi"/>
     <TextView
         android:id="@+id/i"
         android:layout_width="wrap_content"
